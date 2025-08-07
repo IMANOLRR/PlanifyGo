@@ -44,11 +44,10 @@ namespace Gestor_de_Tareas.Pages
             var result = _passwordHasher.VerifyHashedPassword(user, user.password, Password);
             if (result == PasswordVerificationResult.Failed)
             {
-                ErrorMessage = "Email o contraseña incorrectos.";
+                ErrorMessage = "Email o contraseÃ±a incorrectos.";
                 return Page();
             }
 
-            // Guardar sesión
             HttpContext.Session.SetString("UserEmail", user.email);
             HttpContext.Session.SetString("UserName", user.name);
 
