@@ -43,7 +43,7 @@ namespace Gestor_de_Tareas.Pages
 
             [Required]
             [DataType(DataType.Password)]
-            [Compare("password", ErrorMessage = "Passwords do not match")] // <-- corregido para usar minúscula
+            [Compare("password", ErrorMessage = "Passwords do not match")] 
             public string confirmPassword { get; set; }
         }
 
@@ -68,7 +68,7 @@ namespace Gestor_de_Tareas.Pages
                 name = Input.name,
                 lastName = Input.lastName,
                 email = Input.email,
-                password = _passwordHasher.HashPassword(null, Input.password) // o en texto si no quieres hash
+                password = _passwordHasher.HashPassword(null, Input.password)
             };
 
             _context.Users.Add(user);
