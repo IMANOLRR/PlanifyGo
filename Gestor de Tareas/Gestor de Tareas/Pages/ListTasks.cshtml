@@ -1,0 +1,62 @@
+﻿@page
+@model Gestor_de_Tareas.Pages.ListTasksModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Mis Tareas";
+}
+
+<div class="container mt-4">
+    <h2>Mis Tareas</h2>
+
+    @if (Model.Tasks != null && Model.Tasks.Any())
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Etiquetas</th>
+                    <th>Prioridad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.title</td>
+                        <td>@task.description</td>
+                        <td>@task.tags</td>
+                        <td>
+                            @{
+                                switch (task.priority)
+                                {
+                                    case 1:
+                                        @:Alta
+                                        break;
+                                    case 2:
+                                        @:Media
+                                        break;
+                                    case 3:
+                                        @:Baja
+                                        break;
+                                    default:
+                                        @:N/A
+                                        break;
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-warning me-2" asp-page="/EditTask" asp-route-id="@task.id">Editar</a>
+                            <a class="btn btn-sm btn-danger" asp-page="/DeleteTask" asp-route-id="@task.id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">No tienes tareas registradas.</div>
+    }
+</div>
