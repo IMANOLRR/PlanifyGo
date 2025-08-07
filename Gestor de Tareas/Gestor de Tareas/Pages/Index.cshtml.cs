@@ -14,7 +14,15 @@ namespace Gestor_de_Tareas.Pages
 
         public void OnGet()
         {
+            
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail")))
+            {
+                Response.Redirect("/Login");
+            }
 
         }
+
     }
 }
