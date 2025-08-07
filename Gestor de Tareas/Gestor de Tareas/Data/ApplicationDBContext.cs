@@ -14,11 +14,10 @@ namespace Gestor_de_Tareas.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Mapear la clase User a la tabla real existente en MySQL
             modelBuilder.Entity<User>(entity =>
             {
-                object value = entity.ToTable("users"); // nombre exacto de la tabla en MySQL
-                entity.HasKey(e => e.id); // clave primaria
+                object value = entity.ToTable("users");
+                entity.HasKey(e => e.id);
 
                 entity.Property(e => e.name).HasColumnName("name");
                 entity.Property(e => e.lastName).HasColumnName("lastName");
