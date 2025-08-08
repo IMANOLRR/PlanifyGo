@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model Gestor_de_Tareas.Pages.DeleteTaskModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Eliminar Tarea";
+}
+
+<div class="container mt-4">
+    <h2>Eliminar Tarea</h2>
+    <div class="alert alert-warning">
+        <strong>¿Estás seguro de que quieres eliminar esta tarea?</strong>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Task.id" />
+        <p><strong>@Model.Task.title</strong></p>
+        <p>@Model.Task.description</p>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-page="/ListTasks" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
