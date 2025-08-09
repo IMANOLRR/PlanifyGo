@@ -16,19 +16,20 @@
     <form method="post">
         <div class="mb-3">
             <label asp-for="Input.title" class="form-label">Título</label>
-            <input asp-for="Input.title" class="form-control" />
+            <input asp-for="Input.title" id="title" class="form-control" />
+
         </div>
         <div class="mb-3">
             <label asp-for="Input.description" class="form-label">Descripción</label>
-            <textarea asp-for="Input.description" class="form-control"></textarea>
+            <textarea asp-for="Input.description" id="description" class="form-control"></textarea>
         </div>
         <div class="mb-3">
             <label asp-for="Input.tags" class="form-label">Etiquetas (separadas por coma)</label>
-            <input asp-for="Input.tags" class="form-control" />
+            <input asp-for="Input.tags" id="tags" class="form-control" />
         </div>
         <div class="mb-3">
             <label asp-for="Input.priority" class="form-label">Prioridad</label>
-            <select asp-for="Input.priority" class="form-select">
+            <select asp-for="Input.priority" id="priority" class="form-select">
                 <option value="1">Alta</option>
                 <option value="2">Media</option>
                 <option value="3">Baja</option>
