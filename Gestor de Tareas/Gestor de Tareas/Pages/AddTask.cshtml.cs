@@ -27,6 +27,7 @@ namespace Gestor_de_Tareas.Pages
             public string description { get; set; }
             public string tags { get; set; }
             public int priority { get; set; }
+            public DateTime DateTime { get; set; }
         }
 
         public IActionResult OnGet()
@@ -59,6 +60,7 @@ namespace Gestor_de_Tareas.Pages
                 description = Input.description,
                 tags = Input.tags,
                 priority = Input.priority,
+                DueDate = DateTime.Now,
                 userId = user.id
             };
 
