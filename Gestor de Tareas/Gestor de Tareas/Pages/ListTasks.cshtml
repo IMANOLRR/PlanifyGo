@@ -13,45 +13,40 @@
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
+                    <th>Tareas Completadas</th>
                     <th>Título</th>
                     <th>Descripción</th>
                     <th>Etiquetas</th>
                     <th>Prioridad</th>
+                    <th>Fecha de Vencimiento</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var task in Model.Tasks)
                 {
-                    <tr>
-                        <td>@task.title</td>
-                        <td>@task.description</td>
-                        <td>@task.tags</td>
+                    <tr class="@(task.IsCompleted ? "table-success" : "")">
                         <td>
-                            @{
-                                switch (task.priority)
-                                {
-                                    case 1:
-                                        @:Alta
-                                        break;
-                                    case 2:
-                                        @:Media
-                                        break;
-                                    case 3:
-                                        @:Baja
-                                        break;
-                                    default:
-                                        @:N/A
-                                        break;
-                                }
-                            }
+                            <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@task.id" class="d-inline">
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       @(task.IsCompleted ? "checked" : "")
+                                       onchange="this.form.submit()" />
+                            </form>
                         </td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.title</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.description</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.tags</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.priority</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.DueDate?.ToString("yyyy-MM-dd")</td>
                         <td>
-                            <a class="btn btn-sm btn-warning me-2" asp-page="/EditTask" asp-route-id="@task.id">Editar</a>
-                            <a class="btn btn-sm btn-danger" asp-page="/DeleteTask" asp-route-id="@task.id">Eliminar</a>
+                            <a asp-page="/EditTask" asp-route-id="@task.id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-page="/DeleteTask" asp-route-id="@task.id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
+
+                
             </tbody>
         </table>
     }
@@ -60,3 +55,4 @@
         <div class="alert alert-info">No tienes tareas registradas.</div>
     }
 </div>
+        

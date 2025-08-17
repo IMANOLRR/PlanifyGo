@@ -18,6 +18,7 @@ namespace Gestor_de_Tareas.Pages
 
         [BindProperty]
         public Task Input { get; set; }
+        public Task Task { get; set; }
         public string ErrorMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
@@ -30,13 +31,14 @@ namespace Gestor_de_Tareas.Pages
             if (user == null)
                 return RedirectToPage("/Login");
 
-            Input = await _context.Tasks.FirstOrDefaultAsync(t => t.id == id && t.userId == user.id);
-
-            if (Input == null)
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.id == id && t.userId == user.id);
+            if (task == null)
             {
                 ErrorMessage = "Tarea no encontrada o no tienes permisos.";
                 return RedirectToPage("/ListTasks");
             }
+
+            Input = task;
 
             return Page();
         }
@@ -60,6 +62,7 @@ namespace Gestor_de_Tareas.Pages
             task.description = Input.description;
             task.tags = Input.tags;
             task.priority = Input.priority;
+            task.DueDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
