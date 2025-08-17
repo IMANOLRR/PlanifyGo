@@ -35,6 +35,10 @@
                 <option value="3">Baja</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label asp-for="Input.DateTime" class="form-label">Fecha de Vencimiento</label>
+            <input asp-for="Input.DateTime" type="date" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>

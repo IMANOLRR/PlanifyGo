@@ -36,6 +36,10 @@
                 <option value="3">Baja</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label asp-for="Input.DueDate" class="form-label">Due Date</label>
+            <input asp-for="Input.DueDate" type="date" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-success">Guardar Cambios</button>
         <a asp-page="/ListTasks" class="btn btn-secondary">Cancelar</a>
     </form>

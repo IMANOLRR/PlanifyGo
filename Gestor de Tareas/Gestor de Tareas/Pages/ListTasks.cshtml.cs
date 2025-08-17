@@ -36,5 +36,17 @@ namespace Gestor_de_Tareas.Pages
 
             return Page();
         }
+
+        public IActionResult OnPostToggleComplete(int id)
+        {
+            var task = _context.Tasks.FirstOrDefault(t => t.id == id);
+            if (task != null)
+            {
+                task.IsCompleted = !task.IsCompleted;
+                _context.SaveChanges();
+            }
+
+            return RedirectToPage("/ListTasks");
+        }
     }
 }
