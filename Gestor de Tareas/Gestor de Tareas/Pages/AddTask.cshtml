@@ -15,8 +15,9 @@
 
     <form method="post">
         <div class="mb-3">
-            <label asp-for="Input.title" class="form-label">Título</label>
-            <input asp-for="Input.title" id="title" class="form-control" />
+            <label asp-for="Input.title" class="form-label" >Título</label>
+            <input asp-for="Input.title" id="title" class="form-control" required/>
+
 
         </div>
         <div class="mb-3">
@@ -36,8 +37,8 @@
             </select>
         </div>
         <div class="mb-3">
-            <label asp-for="Input.DateTime" class="form-label">Fecha de Vencimiento</label>
-            <input asp-for="Input.DateTime" type="date" class="form-control" />
+            <label asp-for="Input.DueDate" class="form-label">Fecha de Vencimiento</label>
+            <input asp-for="Input.DueDate" type="date" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>

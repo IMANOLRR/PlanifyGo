@@ -31,10 +31,10 @@ namespace Gestor_de_Tareas.Data
             {
                 entity.ToTable("tasks");
                 entity.HasKey(t => t.id);
-                entity.Property(t => t.title).HasColumnName("title");
-                entity.Property(t => t.description).HasColumnName("description");
-                entity.Property(t => t.tags).HasColumnName("tags");
-                entity.Property(t => t.priority).HasColumnName("priority");
+                entity.Property(t => t.Title).HasColumnName("title");
+                entity.Property(t => t.Description).HasColumnName("description");
+                entity.Property(t => t.Tags).HasColumnName("tags");
+                entity.Property(t => t.Priority).HasColumnName("priority");
                 entity.Property(t => t.userId).HasColumnName("user_id");
             });
         }

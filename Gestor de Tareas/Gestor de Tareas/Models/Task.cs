@@ -6,17 +6,20 @@ namespace Gestor_de_Tareas.Models
     public class Task
     {
         public int id { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        public string tags { get; set; }
-        public int priority { get; set; }
 
-        [DataType(DataType.Date)]
+        public string Title { get; set; } = string.Empty;
+
+        public string? Description { get; set; }
+
+        public string? Tags { get; set; }
+
+        public int Priority { get; set; }
+
         public DateTime? DueDate { get; set; }
 
         public bool IsCompleted { get; set; } = false;
-        public int userId { get; set; }
 
-        
+        public int userId { get; set; }
+        public User? User { get; set; }
     }
 }
