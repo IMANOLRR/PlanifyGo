@@ -1,48 +1,112 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿/* Fondo degradado */
+body.auth-bg {
+    background: linear-gradient(135deg, #0d6efd, #6c63ff);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
 }
 
-a {
-  color: #0077cc;
+/* Card del formulario */
+.auth-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+    border-top: 5px solid #0d6efd;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+/* Encabezado */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .auth-header h2 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0d6efd;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+/* Inputs */
+.auth-card .form-control {
+    border-radius: 10px;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease-in-out;
+    background: #f8f9fa;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    .auth-card .form-control:focus {
+        border-color: #0d6efd;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+    }
+
+/* Labels */
+.auth-card label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.3rem;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+/* Botón principal */
+.auth-card .btn-primary {
+    border-radius: 12px;
+    padding: 0.8rem;
+    width: 100%;
+    font-weight: 600;
+    background: #0d6efd;
+    border: none;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    margin-top: 0.5rem;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    .auth-card .btn-primary:hover {
+        background: #0b5ed7;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+/* Links */
+.auth-card .auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    .auth-card .auth-links a {
+        color: #0d6efd;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+        .auth-card .auth-links a:hover {
+            color: #084298;
+            text-decoration: underline;
+        }
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
