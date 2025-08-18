@@ -34,10 +34,21 @@
                                        onchange="this.form.submit()" />
                             </form>
                         </td>
-                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.title</td>
-                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.description</td>
-                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.tags</td>
-                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.priority</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Title</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Description</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Tags</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">
+                        @switch (task.Priority) 
+                        {   case 1: @:Alta 
+                            break; 
+                            case 2: @:Media 
+                                    break; 
+                            case 3: @:Baja 
+                                    break; 
+                            default: @:N/A 
+                                    break; 
+                        }
+                        </td>
                         <td class="@(task.IsCompleted ? "task-completed" : "")">@task.DueDate?.ToString("yyyy-MM-dd")</td>
                         <td>
                             <a asp-page="/EditTask" asp-route-id="@task.id" class="btn btn-sm btn-warning">Edit</a>
