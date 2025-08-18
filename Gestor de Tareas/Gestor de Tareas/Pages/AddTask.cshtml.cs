@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Gestor_de_Tareas.Data;
 using Gestor_de_Tareas.Models;
 using Microsoft.AspNetCore.Http;
-using Task = Gestor_de_Tareas.Models.Task;
+using System.Threading.Tasks;
 
 namespace Gestor_de_Tareas.Pages
 {
@@ -17,17 +17,18 @@ namespace Gestor_de_Tareas.Pages
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = new();
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public class InputModel
         {
-            public string title { get; set; }
-            public string description { get; set; }
-            public string tags { get; set; }
+            public string title { get; set; } = string.Empty;
+            public string? description { get; set; }
+            public string? tags { get; set; }
             public int priority { get; set; }
-            public DateTime DateTime { get; set; }
+            public DateTime? DueDate { get; set; }
+
         }
 
         public IActionResult OnGet()
@@ -54,21 +55,21 @@ namespace Gestor_de_Tareas.Pages
                 return Page();
             }
 
-            var task = new Task
+            var task = new Models.Task
             {
-                title = Input.title,
-                description = Input.description,
-                tags = Input.tags,
-                priority = Input.priority,
-                DueDate = DateTime.Now,
-                userId = user.id
+                Title = Input.title,
+                Description = Input.description,
+                Tags = Input.tags,
+                Priority = Input.priority,
+                DueDate = Input.DueDate ?? DateTime.Now,
+                userId = user.id,
+                IsCompleted = false
             };
 
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/ListTasks");
         }
     }
 }
-

@@ -13,8 +13,8 @@
 
     <form method="post">
         <input type="hidden" asp-for="Task.id" />
-        <p><strong>@Model.Task.title</strong></p>
-        <p>@Model.Task.description</p>
+        <p><strong>@Model.Task.Title</strong></p>
+        <p>@Model.Task.Description</p>
         <button type="submit" class="btn btn-danger">Eliminar</button>
         <a asp-page="/ListTasks" class="btn btn-secondary">Cancelar</a>
     </form>
