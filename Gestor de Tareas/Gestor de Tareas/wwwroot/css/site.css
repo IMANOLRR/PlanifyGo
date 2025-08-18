@@ -17,12 +17,244 @@ html {
   min-height: 100%;
 }
 
+/* ==== General ==== */
 body {
-  margin-bottom: 60px;
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
+
+/* ==== Navbar ==== */
+.navbar {
+    padding: 0.8rem 1.5rem;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    transition: 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #0d6efd !important;
+        transform: translateY(-2px);
+    }
+
+/* ==== Dashboard (Index) ==== */
+.dashboard-box {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .dashboard-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    }
+
+/* ==== Cards (KPIs) ==== */
+.card {
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+.card-title {
+    font-weight: 600;
+}
+
+.display-6 {
+    font-weight: bold;
+}
+
+/* ==== Tables (ListTasks) ==== */
+.table {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+    .table th {
+        background: #0d6efd;
+        color: #fff;
+        font-weight: 600;
+    }
+
+.table-hover tbody tr:hover {
+    background-color: #f1f5ff;
+    cursor: pointer;
+}
+
+/* ==== Badges ==== */
+.badge {
+    padding: 0.5em 0.8em;
+    font-size: 0.9rem;
+    border-radius: 8px;
+}
+
+/* ==== Buttons ==== */
+.btn {
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    transition: 0.3s ease;
+}
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+/* ==== Forms ==== */
+.form-control {
+    border-radius: 10px;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    transition: 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 6px rgba(13,110,253,0.3) !important;
+    }
+
+/* ==== Chart containers ==== */
+canvas {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+
 .task-completed {
     text-decoration: line-through;
     color: #6c757d;
     opacity: 0.7;
     font-style: italic;
+}
+
+/* Fondo degradado */
+body.auth-bg {
+    background: linear-gradient(135deg, #0d6efd, #6c63ff);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/* Card del formulario */
+.auth-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+    border-top: 5px solid #0d6efd;
+}
+
+/* Encabezado */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+    .auth-header h2 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #0d6efd;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+/* Inputs */
+.auth-card .form-control {
+    border-radius: 10px;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease-in-out;
+    background: #f8f9fa;
+}
+
+    .auth-card .form-control:focus {
+        border-color: #0d6efd;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+    }
+
+/* Labels */
+.auth-card label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.3rem;
+}
+
+/* Botón principal */
+.auth-card .btn-primary {
+    border-radius: 12px;
+    padding: 0.8rem;
+    width: 100%;
+    font-weight: 600;
+    background: #0d6efd;
+    border: none;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    margin-top: 0.5rem;
+}
+
+    .auth-card .btn-primary:hover {
+        background: #0b5ed7;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+/* Links */
+.auth-card .auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+    .auth-card .auth-links a {
+        color: #0d6efd;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+        .auth-card .auth-links a:hover {
+            color: #084298;
+            text-decoration: underline;
+        }
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
