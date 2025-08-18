@@ -58,10 +58,10 @@ namespace Gestor_de_Tareas.Pages
                 return RedirectToPage("/ListTasks");
             }
 
-            task.title = Input.title;
-            task.description = Input.description;
-            task.tags = Input.tags;
-            task.priority = Input.priority;
+            task.Title = Input.Title;
+            task.Description = Input.Description;
+            task.Tags = Input.Tags;
+            task.Priority = Input.Priority;
             task.DueDate = DateTime.Now;
 
             await _context.SaveChangesAsync();

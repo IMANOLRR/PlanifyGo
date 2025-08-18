@@ -7,3 +7,69 @@
 <div class="text-center">
     <h2>Bienvenido @ViewData["UserName"]</h2>   
 </div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Tasks</h5>
+                <p class="card-text display-6">@Model.TotalTasks</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Completed</h5>
+                <p class="card-text display-6">@Model.CompletedTasks</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Pending</h5>
+                <p class="card-text display-6">@Model.PendingTasks</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row mb-5">
+    <div class="col-md-6">
+        <canvas id="priorityChart"></canvas>
+    </div>
+    <div class="col-md-6">
+        <canvas id="statusChart"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var ctx1 = document.getElementById('priorityChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['High', 'Medium', 'Low'],
+                datasets: [{
+                    data: [@Model.HighPriority, @Model.MediumPriority, @Model.LowPriority],
+                    backgroundColor: ['#dc3545', '#ffc107', '#198754']
+                }]
+            }
+        });
+
+        var ctx2 = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Pending'],
+                datasets: [{
+                    data: [@Model.CompletedTasks, @Model.PendingTasks],
+                    backgroundColor: ['#198754', '#0d6efd']
+                }]
+            }
+        });
+    </script>
+}
+

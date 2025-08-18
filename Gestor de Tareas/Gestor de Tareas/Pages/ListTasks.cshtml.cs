@@ -31,7 +31,7 @@ namespace Gestor_de_Tareas.Pages
 
             Tasks = await _context.Tasks
                 .Where(t => t.userId == user.id)
-                .OrderBy(t => t.priority)
+                .OrderBy(t => t.Priority)
                 .ToListAsync();
 
             return Page();
