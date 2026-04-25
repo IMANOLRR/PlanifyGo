@@ -1,0 +1,69 @@
+﻿@page
+@model Gestor_de_Tareas.Pages.ListTasksModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Mis Tareas";
+}
+
+<div class="container mt-4">
+    <h2>Mis Tareas</h2>
+
+    @if (Model.Tasks != null && Model.Tasks.Any())
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Tareas Completadas</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Etiquetas</th>
+                    <th>Prioridad</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr class="@(task.IsCompleted ? "table-success" : "")">
+                        <td>
+                            <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@task.id" class="d-inline">
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       @(task.IsCompleted ? "checked" : "")
+                                       onchange="this.form.submit()" />
+                            </form>
+                        </td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Title</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Description</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.Tags</td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">
+                        @switch (task.Priority) 
+                        {   case 1: @:Alta 
+                            break; 
+                            case 2: @:Media 
+                                    break; 
+                            case 3: @:Baja 
+                                    break; 
+                            default: @:N/A 
+                                    break; 
+                        }
+                        </td>
+                        <td class="@(task.IsCompleted ? "task-completed" : "")">@task.DueDate?.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <a asp-page="/EditTask" asp-route-id="@task.id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-page="/DeleteTask" asp-route-id="@task.id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+                
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">No tienes tareas registradas.</div>
+    }
+</div>
+        

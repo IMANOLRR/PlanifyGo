@@ -1,0 +1,55 @@
+﻿@page
+@model Gestor_de_Tareas.Pages.RegisterModel
+@{
+    Layout = "/Pages/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container">
+    <h1>Registro</h1>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <div class="auth-card">
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label>Nombre</label>
+                <input asp-for="Input.name" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label>Apellido</label>
+                <input asp-for="Input.lastName" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input asp-for="Input.email" class="form-control" type="email" />
+            </div>
+            <div class="mb-3">
+                <label>Contraseña</label>
+                <input asp-for="Input.password" class="form-control" type="password" />
+            </div>
+            <div class="mb-3">
+                <label>Confirmar Contraseña</label>
+                <input asp-for="Input.confirmPassword" class="form-control" type="password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+
+        <div class="auth-links">
+            <p>¿Ya tienes cuenta? <a asp-page="/Login">Inicia sesión aquí</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

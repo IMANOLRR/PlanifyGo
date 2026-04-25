@@ -1,0 +1,37 @@
+﻿@page
+@model Gestor_de_Tareas.Pages.LoginModel
+@{
+    Layout = "/Pages/Shared/_LayoutLogin.cshtml";
+
+
+}
+
+<body class="auth-bg">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>🔑 Iniciar Sesión</h2>
+            <p>Accede a tu cuenta para gestionar tus tareas</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="email">Correo electrónico</label>
+                <input asp-for="Email" id="email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="password">Contraseña</label>
+                <input asp-for="Password" id="password" class="form-control" type="password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+
+        <div class="auth-links">
+            <p>¿No tienes cuenta? <a asp-page="/Register">Regístrate aquí</a></p>
+        </div>
+    </div>
+</body>
