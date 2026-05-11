@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: planifygo-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: gestortareasdb
+    ports:
+      - "3307:3306"
+
+  app:
+    build: .
+    container_name: planifygo-app
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=server=db;port=3306;database=gestortareasdb;user=root;password=1234;SslMode=None;AllowPublicKeyRetrieval=True;
+volumes:
+  mysql_data:
