@@ -6,10 +6,14 @@ using TaskItem = Gestor_de_Tareas.Models.Task;
 
 namespace Gestor_de_Tareas.Pages
 {
-    public class IndexModel(ApplicationDBContext context) : PageModel
+    public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel>? _logger;
-        private readonly ApplicationDBContext _context = context;
+        private readonly ApplicationDBContext _context;
+
+        public IndexModel(ApplicationDBContext context)
+        {
+            _context = context;
+        }
 
         public IList<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 
@@ -20,24 +24,32 @@ namespace Gestor_de_Tareas.Pages
         public int MediumPriority { get; set; }
         public int LowPriority { get; set; }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(email))
+                return RedirectToPage("/Login");
+
+            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.email == email);
+            if (user == null)
+                return RedirectToPage("/Login");
+
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail")))
-            {
-                Response.Redirect("/Login");
-            }
-
-            Tasks = _context.Set<TaskItem>().AsNoTracking().ToList();
+            Tasks = await _context.Set<TaskItem>()
+                .AsNoTracking()
+                .Where(t => t.userId == user.id)
+                .ToListAsync();
 
             TotalTasks = Tasks.Count;
             CompletedTasks = Tasks.Count(t => t.IsCompleted);
             PendingTasks = TotalTasks - CompletedTasks;
 
-            HighPriority = Tasks.Count(t => t.Priority == 3);
+            HighPriority = Tasks.Count(t => t.Priority == 1);
             MediumPriority = Tasks.Count(t => t.Priority == 2);
-            LowPriority = Tasks.Count(t => t.Priority == 1);
+            LowPriority = Tasks.Count(t => t.Priority == 3);
+
+            return Page();
         }
     }
 }

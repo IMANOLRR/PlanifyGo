@@ -5,9 +5,9 @@ namespace Gestor_de_Tareas.Models
     public class User
     {
         public int id { get; set; } 
-        public string name { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
+        public string name { get; set; } = string.Empty;
+        public string lastName { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
+        public string password { get; set; } = string.Empty;
     }
 }

@@ -20,31 +20,31 @@ namespace Gestor_de_Tareas.Pages
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = new();
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public class InputModel
         {
             [Required]
-            public string name { get; set; }
+            public string name { get; set; } = string.Empty;
 
             [Required]
-            public string lastName { get; set; }
+            public string lastName { get; set; } = string.Empty;
 
             [Required]
             [EmailAddress]
-            public string email { get; set; }
+            public string email { get; set; } = string.Empty;
 
             [Required]
             [DataType(DataType.Password)]
             [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
-            public string password { get; set; }
+            public string password { get; set; } = string.Empty;
 
             [Required]
             [DataType(DataType.Password)]
             [Compare("password", ErrorMessage = "Passwords do not match")] 
-            public string confirmPassword { get; set; }
+            public string confirmPassword { get; set; } = string.Empty;
         }
 
         public void OnGet()
@@ -68,7 +68,7 @@ namespace Gestor_de_Tareas.Pages
                 name = Input.name,
                 lastName = Input.lastName,
                 email = Input.email,
-                password = _passwordHasher.HashPassword(null, Input.password)
+                password = _passwordHasher.HashPassword(user: null!, Input.password)
             };
 
             _context.Users.Add(user);
@@ -79,4 +79,3 @@ namespace Gestor_de_Tareas.Pages
     }
 
 }
-

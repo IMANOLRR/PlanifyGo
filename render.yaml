@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: planifygo
+    runtime: docker
+    dockerfilePath: "./Gestor de Tareas/Dockerfile"
+    dockerContext: "./Gestor de Tareas"
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false

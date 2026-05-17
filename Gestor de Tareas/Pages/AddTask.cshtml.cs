@@ -1,9 +1,8 @@
+using Gestor_de_Tareas.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Gestor_de_Tareas.Data;
-using Gestor_de_Tareas.Models;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gestor_de_Tareas.Pages
 {
@@ -23,45 +22,43 @@ namespace Gestor_de_Tareas.Pages
 
         public class InputModel
         {
+            [Required]
             public string title { get; set; } = string.Empty;
-            public string? description { get; set; }
-            public string? tags { get; set; }
-            public int priority { get; set; }
-            public DateTime? DueDate { get; set; }
 
+            public string? description { get; set; }
+
+            public string? tags { get; set; }
+
+            [Range(1, 3)]
+            public int priority { get; set; }
+
+            public DateTime? DueDate { get; set; }
         }
 
         public IActionResult OnGet()
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail")))
-            {
                 return RedirectToPage("/Login");
-            }
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var userEmail = HttpContext.Session.GetString("UserEmail");
+            if (!ModelState.IsValid)
+                return Page();
 
-            if (string.IsNullOrEmpty(userEmail))
+            var user = await GetCurrentUserAsync();
+            if (user == null)
                 return RedirectToPage("/Login");
 
-            var user = _context.Users.FirstOrDefault(u => u.email == userEmail);
-            if (user == null)
-            {
-                ErrorMessage = "Usuario no encontrado.";
-                return Page();
-            }
-
-            var task = new Models.Task
+            var task = new Gestor_de_Tareas.Models.Task
             {
                 Title = Input.title,
                 Description = Input.description,
                 Tags = Input.tags,
                 Priority = Input.priority,
-                DueDate = Input.DueDate ?? DateTime.Now,
+                DueDate = Input.DueDate,
                 userId = user.id,
                 IsCompleted = false
             };
@@ -70,6 +67,15 @@ namespace Gestor_de_Tareas.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/ListTasks");
+        }
+
+        private async Task<Gestor_de_Tareas.Models.User?> GetCurrentUserAsync()
+        {
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(email))
+                return null;
+
+            return await _context.Users.FirstOrDefaultAsync(u => u.email == email);
         }
     }
 }

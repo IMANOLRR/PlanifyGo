@@ -5,10 +5,14 @@ services:
     image: mysql:8.0
     container_name: planifygo-db
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-planifygo_root_password}
       MYSQL_DATABASE: gestortareasdb
+      MYSQL_USER: ${MYSQL_USER:-planifygo}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-planifygo_dev_password}
     ports:
       - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   app:
     build: .
@@ -19,6 +23,6 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=server=db;port=3306;database=gestortareasdb;user=root;password=1234;SslMode=None;AllowPublicKeyRetrieval=True;
+      - ConnectionStrings__DefaultConnection=server=db;port=3306;database=gestortareasdb;user=${MYSQL_USER:-planifygo};password=${MYSQL_PASSWORD:-planifygo_dev_password};SslMode=None;AllowPublicKeyRetrieval=True;
 volumes:
   mysql_data:

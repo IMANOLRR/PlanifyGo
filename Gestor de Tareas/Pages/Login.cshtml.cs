@@ -4,33 +4,30 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace Gestor_de_Tareas.Pages
 {
     public class LoginModel : PageModel
     {
         private readonly ApplicationDBContext _context;
-
         private readonly IPasswordHasher<User> _passwordHasher;
+
         public LoginModel(ApplicationDBContext context, IPasswordHasher<User> passwordHasher)
         {
             _context = context;
             _passwordHasher = passwordHasher;
         }
-        
 
         [BindProperty]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [BindProperty]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         public void OnGet()
         {
-            
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -40,6 +37,11 @@ namespace Gestor_de_Tareas.Pages
 
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.email == Email);
+            if (user == null)
+            {
+                ErrorMessage = "Email o contraseña incorrectos.";
+                return Page();
+            }
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.password, Password);
             if (result == PasswordVerificationResult.Failed)
@@ -53,6 +55,5 @@ namespace Gestor_de_Tareas.Pages
 
             return RedirectToPage("/Index");
         }
-
     }
 }

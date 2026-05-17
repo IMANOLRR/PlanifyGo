@@ -1,8 +1,7 @@
+using Gestor_de_Tareas.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Gestor_de_Tareas.Data;
-using Gestor_de_Tareas.Models;
 using Task = Gestor_de_Tareas.Models.Task;
 
 namespace Gestor_de_Tareas.Pages
@@ -16,37 +15,47 @@ namespace Gestor_de_Tareas.Pages
             _context = context;
         }
 
-        public List<Task> Tasks { get; set; }
+        public List<Task> Tasks { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var email = HttpContext.Session.GetString("UserEmail");
-
-            if (string.IsNullOrEmpty(email))
-                return RedirectToPage("/Login");
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.email == email);
+            var user = await GetCurrentUserAsync();
             if (user == null)
                 return RedirectToPage("/Login");
 
             Tasks = await _context.Tasks
+                .AsNoTracking()
                 .Where(t => t.userId == user.id)
                 .OrderBy(t => t.Priority)
+                .ThenBy(t => t.DueDate)
                 .ToListAsync();
 
             return Page();
         }
 
-        public IActionResult OnPostToggleComplete(int id)
+        public async Task<IActionResult> OnPostToggleCompleteAsync(int id)
         {
-            var task = _context.Tasks.FirstOrDefault(t => t.id == id);
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+                return RedirectToPage("/Login");
+
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.id == id && t.userId == user.id);
             if (task != null)
             {
                 task.IsCompleted = !task.IsCompleted;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("/ListTasks");
+        }
+
+        private async Task<Gestor_de_Tareas.Models.User?> GetCurrentUserAsync()
+        {
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(email))
+                return null;
+
+            return await _context.Users.FirstOrDefaultAsync(u => u.email == email);
         }
     }
 }
